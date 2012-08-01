@@ -388,6 +388,10 @@ class Service(object):
         self.debug = SilenceRepeated(self.logger.debug,
                         10 if self.max_interval < 60 else 1)
 
+    def __reduce__(self):
+        return self.__class__, (self.max_interval, self.schedule_filename,
+                                self.scheduler_cls, self.app)
+
     def start(self, embedded_process=False):
         self.logger.info("Celerybeat: Starting...")
         self.logger.debug("Celerybeat: Ticking with max interval->%s",
