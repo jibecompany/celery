@@ -389,7 +389,8 @@ class Service(object):
                         10 if self.max_interval < 60 else 1)
 
     def __reduce__(self):
-        return self.__class__, (self.max_interval, self.schedule_filename,
+        # Don't pickle logger
+        return self.__class__, (None, self.max_interval, self.schedule_filename,
                                 self.scheduler_cls, self.app)
 
     def start(self, embedded_process=False):
